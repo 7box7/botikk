@@ -94,6 +94,6 @@ while True:
         elif hour * 60 + minu <= 1440:
             go = '1'
         urok, cab = Z[day][go]
-        vk.method('messages.send', {'user_id': g, 'message': day, 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(1)
-        vk.method('messages.send', {'user_id': g, 'message': hour, 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
