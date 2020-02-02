@@ -1,2 +1,1 @@
-vk_api
-requests
+python-3.6.10
