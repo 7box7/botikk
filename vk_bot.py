@@ -74,16 +74,18 @@ while True:
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
         minu = int(time.strftime('%M', time.localtime()))
-        if hour >= 15 and minu > 40 or hour <= 10 and minu <= 20:
+        print(day, hour, minu)
+        if hour * 60 + minu <= 620:
             go = '1'
-        elif hour >= 10 and minu > 20 or hour < 12 and minu <= 0:
+        elif hour * 60 + minu <= 720:
             go = '2'
-        elif hour >= 12 and minu > 0 or hour < 14 and minu <= 0:
+        elif hour * 60 + minu <= 840:
             go = '3'
-        elif hour >= 14 and minu > 0 or hour <= 15 and minu <= 40:
+        elif hour * 60 + minu <= 940:
             go = '4'
+        elif hour * 60 + minu <= 1440:
+            go = '1'
         urok, cab = Z[day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(1)
         vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
-
