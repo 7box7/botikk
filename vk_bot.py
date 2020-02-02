@@ -14,7 +14,7 @@ while True:
     message = write_msg('393598407')
     if message == 'Е':
         break
-    elif message == 'Валюты':
+    elif message.lower() == 'валюты':
         vk.method('messages.send', {'user_id': 393598407, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
     elif message in '(EUR/USD)':
         slovo = message
