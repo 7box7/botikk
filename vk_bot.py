@@ -16,7 +16,7 @@ while True:
         break
     elif message.lower() == 'валюты':
         vk.method('messages.send', {'user_id': 493552486, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
-    elif message in '(EUR/USD)':
+    elif message.lower() in '(eur/usd)' or message.lower() in 'доллар/евро':
         slovo = message
         r = requests.get('https://www.banki.ru/products/currency/cash/moskva/')
         r = r.text.split('\n')
