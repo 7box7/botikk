@@ -1,2 +1,2 @@
-python-3.6.8
-git push heroku master
+vk_api
+requests
