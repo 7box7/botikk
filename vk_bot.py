@@ -1,7 +1,9 @@
 import time
+import time
 import vk_api
 import requests
 
+days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
 Z = {
     'Mon': {
         '1': ['Информатика', '310'],
@@ -73,8 +75,14 @@ while True:
     elif message.lower() == 'расписание':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
+        hour += 2
+        if hour >= 24:
+            hour = hour - 24
+            if day == days[-1]:
+                day = 'Mon'
+            else:
+                day = days[days.index(day) + 1]
         minu = int(time.strftime('%M', time.localtime()))
-        print(day, hour, minu)
         if hour * 60 + minu <= 620:
             go = '1'
         elif hour * 60 + minu <= 720:
