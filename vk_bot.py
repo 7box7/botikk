@@ -11,11 +11,11 @@ def write_msg(user_id):
 
 while True:
     time.sleep(5)
-    message = write_msg('493552486')
+    message = write_msg('393598407')
     if message == 'Е':
         break
     elif message == 'Валюты':
-        vk.method('messages.send', {'user_id': 493552486, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': 393598407, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
     elif message in '(EUR/USD)':
         slovo = message
         r = requests.get('https://www.banki.ru/products/currency/cash/moskva/')
@@ -29,4 +29,4 @@ while True:
                     b = b.split('<div class="currency-table__large-text">')
                     b = b[1][:-6]
                     vk.method('messages.send',
-                              {'user_id': 493552486, 'message': str(b), 'random_id': int(time.time())})
+                              {'user_id': 393598407, 'message': str(b), 'random_id': int(time.time())})
