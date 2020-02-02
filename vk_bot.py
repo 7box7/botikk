@@ -75,7 +75,7 @@ while True:
     elif message.lower() == 'расписание':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
-        hour += 2
+        hour += 3
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
