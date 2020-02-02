@@ -2,6 +2,42 @@ import time
 import vk_api
 import requests
 
+Z = {
+    'Mon': {
+        '1': ['Информатика', '310'],
+        '2': ['Физика', '207'],
+        '3': ['Литература', '119'],
+        '4': ['Биология', '215']},
+    'Tue': {
+        '1': ['Физра', 'Сами знаете где'],
+        '2': ['Инглиш', '211'],
+        '3': ['Геометрия', '317'],
+        '4': ['ППВ', 'свалишь, получишь']},
+    'Wed': {
+        '1': ['Информатика', '310'],
+        '2': ['География', '215'],
+        '3': ['Литература', '119'],
+        '4': ['Алгебра', '317']},
+    'Thu': {
+        '1': ['Физика', '410'],
+        '2': ['Химия', '316'],
+        '3': ['Информатика', '310'],
+        '4': ['История', '108']},
+    'Fri': {
+        '1': ['Общага', '108'],
+        '2': ['Лекция', '208'],
+        '3': ['Алгебра', '317'],
+        '4': ['Русский', '117']},
+    'Sat': {
+        '1': ['Информатика', '310'],
+        '2': ['Информатика', '310'],
+        '3': ['Информатика', '310']},
+    'Sun': {
+        '1': ['Отдыхай уже', 'Бро'],
+        '2': ['Лекция', '208'],
+        '3': ['Алгебра', '317'],
+        '4': ['Русский', '117']}
+}
 vk = vk_api.VkApi(token='7d977d1ac381b8deabb8ef0969ebf9188c8b0be1e16941fc3fdc3496d06f5903c6ad53b3fb87c628b7f8d')
 
 
@@ -17,9 +53,7 @@ while True:
         continue
     g = g['items'][0]['conversation']['peer']['id']
     message = write_msg(g)
-    if message == 'Е':
-        break
-    elif message.lower() == 'валюты':
+    if message.lower() == 'валюты':
         vk.method('messages.send', {'user_id': g, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
     elif message.lower() in '(eur/usd)':
         slovo = message.upper()
@@ -36,3 +70,20 @@ while True:
                     b = b[1][:-6]
                     vk.method('messages.send',
                               {'user_id': g, 'message': str(b), 'random_id': int(time.time())})
+    elif message.lower() == 'расписание':
+        day = time.strftime('%a', time.localtime())
+        hour = int(time.strftime('%H', time.localtime()))
+        minu = int(time.strftime('%M', time.localtime()))
+        if hour >= 15 and minu > 40 or hour <= 10 and minu <= 20:
+            go = '1'
+        elif hour >= 10 and minu > 20 or hour < 12 and minu <= 0:
+            go = '2'
+        elif hour >= 12 and minu > 0 or hour < 14 and minu <= 0:
+            go = '3'
+        elif hour >= 14 and minu > 0 or hour <= 15 and minu <= 40:
+            go = '4'
+        urok, cab = Z[day][go]
+        vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
+        time.sleep(1)
+        vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
+
