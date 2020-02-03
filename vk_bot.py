@@ -13,6 +13,7 @@ def write_msg(user_id):
 
 
 while True:
+    T = sSettt()
     time.sleep(2)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
@@ -57,7 +58,7 @@ while True:
             go = '4'
         elif hour * 60 + minu <= 1440:
             go = '1'
-        urok, cab = Z[day][go]
+        urok, cab = T['Z1'][day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(0.5)
         vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
