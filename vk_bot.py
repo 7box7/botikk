@@ -63,7 +63,7 @@ while True:
         urok, cab = T.Z['Z1'][day][go]
         vk.method('messages.send', {'user_id': g, 'message': day, 'random_id': int(time.time())})
         time.sleep(0.5)
-        vk.method('messages.send', {'user_id': g, 'message': go, 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': hour, 'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
                                                              '------' + 'Гуревич' + '\n'
