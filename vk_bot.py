@@ -1,5 +1,4 @@
 import time
-import time
 import vk_api
 import requests
 
@@ -49,7 +48,7 @@ def write_msg(user_id):
 
 
 while True:
-    time.sleep(2.5)
+    time.sleep(2)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
         continue
@@ -72,13 +71,10 @@ while True:
                     b = b[1][:-6]
                     vk.method('messages.send',
                               {'user_id': g, 'message': str(b), 'random_id': int(time.time())})
-    elif message.lower() in 'гуревич':
-        vk.method('messages.send',
-                              {'user_id': g, 'message': 'чмо', 'random_id': int(time.time())})
-    elif message.lower() == 'расписание':
+    elif message.lower() == 'урок':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour += 2
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -98,5 +94,10 @@ while True:
             go = '1'
         urok, cab = Z[day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
-        time.sleep(1)
+        time.sleep(0.5)
         vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
+    elif message.lower() == '/help':
+        vk.method('messages.send', {'user_id': g, 'message': 'Команды:'
+                                                             'Гуревич'
+                                                             'Урок'
+                                                             'Валюты', 'random_id': int(time.time())})
