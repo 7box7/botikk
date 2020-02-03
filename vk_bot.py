@@ -42,7 +42,7 @@ while True:
     elif message.lower() == 'урок':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
-        hour += 2
+        hour += 3
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -61,9 +61,9 @@ while True:
         elif hour * 60 + minu <= 1440:
             go = '1'
         urok, cab = T.Z['Z1'][day][go]
-        vk.method('messages.send', {'user_id': g, 'message': day, 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(0.5)
-        vk.method('messages.send', {'user_id': g, 'message': hour, 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
                                                              '------' + 'Гуревич' + '\n'
