@@ -49,7 +49,7 @@ def write_msg(user_id):
 
 
 while True:
-    time.sleep(4)
+    time.sleep(2.5)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
         continue
