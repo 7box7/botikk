@@ -72,6 +72,9 @@ while True:
                     b = b[1][:-6]
                     vk.method('messages.send',
                               {'user_id': g, 'message': str(b), 'random_id': int(time.time())})
+    elif message.lower() in 'гуревич':
+        vk.method('messages.send',
+                              {'user_id': g, 'message': 'чмо', 'random_id': int(time.time())})
     elif message.lower() == 'расписание':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
