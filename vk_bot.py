@@ -1,6 +1,7 @@
 import time
 import vk_api
 import requests
+import random
 from table import sSettt
 from IDDD import iddd
 
@@ -86,6 +87,22 @@ while True:
                                                             + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
                                                             + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
                                                             + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n', 'random_id': int(time.time())})
+    elif message.lower() == 'илья':
+        check = random.randint(1, 5)
+        a = vk.method("photos.getMessagesUploadServer")
+        if check == 1:
+            b = requests.post(a['upload_url'], files={'photo': open('file1.jpg', 'rb')}).json()
+        elif check == 2:
+            b = requests.post(a['upload_url'], files={'photo': open('file2.jpg', 'rb')}).json()
+        elif check == 3:
+            b = requests.post(a['upload_url'], files={'photo': open('file3.jpg', 'rb')}).json()
+        elif check == 4:
+            b = requests.post(a['upload_url'], files={'photo': open('file4.jpg', 'rb')}).json()
+        elif check == 5:
+            b = requests.post(a['upload_url'], files={'photo': open('file5.jpg', 'rb')}).json()
+        c = vk.method('photos.saveMessagesPhoto', {'photo': b['photo'], 'server': b['server'], 'hash': b['hash']})[0]
+        att = "photo{}_{}".format(c["owner_id"], c["id"])
+        vk.method('messages.send', {'user_id': g, "attachment": att, 'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
                                                              '------' + 'Гуревич' + '\n'
