@@ -61,7 +61,7 @@ while True:
         elif hour * 60 + minu <= 940:
             go = '4'
         elif hour * 60 + minu <= 1440:
-            go = '1'
+            go = '5'
         urok, cab = T.classes[I[g][0]][I[g][1]][day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(0.5)
