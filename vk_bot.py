@@ -2,6 +2,7 @@ import time
 import vk_api
 import requests
 from table import sSettt
+from IDDD import iddd
 
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 vk = vk_api.VkApi(token='7d977d1ac381b8deabb8ef0969ebf9188c8b0be1e16941fc3fdc3496d06f5903c6ad53b3fb87c628b7f8d')
@@ -14,6 +15,7 @@ def write_msg(user_id):
 
 while True:
     T = sSettt()
+    I = iddd()
     time.sleep(2)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
@@ -42,7 +44,7 @@ while True:
     elif message.lower() == 'урок':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour += 2
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -50,17 +52,17 @@ while True:
             else:
                 day = days[days.index(day) + 1]
         minu = int(time.strftime('%M', time.localtime()))
-        if hour * 60 + minu < 620:
+        if hour * 60 + minu <= 620:
             go = '1'
-        elif hour * 60 + minu < 720:
+        elif hour * 60 + minu <= 720:
             go = '2'
-        elif hour * 60 + minu < 840:
+        elif hour * 60 + minu <= 840:
             go = '3'
-        elif hour * 60 + minu < 940:
+        elif hour * 60 + minu <= 940:
             go = '4'
-        elif hour * 60 + minu < 1440:
+        elif hour * 60 + minu <= 1440:
             go = '1'
-        urok, cab = T.Z['Z1'][day][go]
+        urok, cab = T.classes[I[g][0]][I[g][1]][day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(0.5)
         vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
