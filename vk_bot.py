@@ -62,12 +62,27 @@ while True:
             go = '4'
         elif hour * 60 + minu <= 1440:
             go = '5'
-        urok, cab = T.classes[I[g][0]][I[g][1]][day][go]
+        urok, cab = T.classes[I.iD[g][0]][I.iD[g][1]][day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
         time.sleep(0.5)
         vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
+    elif message.lower() == 'день':
+        day = time.strftime('%a', time.localtime())
+        hour = int(time.strftime('%H', time.localtime()))
+        hour += 2
+        if hour >= 24:
+            hour = hour - 24
+            if day == days[-1]:
+                day = 'Mon'
+            else:
+                day = days[days.index(day) + 1]
+        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
+                                                            + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
+                                                            + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
+                                                            + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n', 'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
                                                              '------' + 'Гуревич' + '\n'
                                                              '------' + 'Урок' + '\n'
+                                                             '------' + 'День' + '\n'
                                                              '------' + 'Валюты', 'random_id': int(time.time())})
