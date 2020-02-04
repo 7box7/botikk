@@ -50,15 +50,15 @@ while True:
             else:
                 day = days[days.index(day) + 1]
         minu = int(time.strftime('%M', time.localtime()))
-        if hour * 60 + minu <= 620:
+        if hour * 60 + minu < 620:
             go = '1'
-        elif hour * 60 + minu <= 720:
+        elif hour * 60 + minu < 720:
             go = '2'
-        elif hour * 60 + minu <= 840:
+        elif hour * 60 + minu < 840:
             go = '3'
-        elif hour * 60 + minu <= 940:
+        elif hour * 60 + minu < 940:
             go = '4'
-        elif hour * 60 + minu <= 1440:
+        elif hour * 60 + minu < 1440:
             go = '1'
         urok, cab = T.Z['Z1'][day][go]
         vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
