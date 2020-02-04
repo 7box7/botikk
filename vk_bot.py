@@ -42,6 +42,9 @@ while True:
     elif message.lower() == 'гуревич':
         vk.method('messages.send', {'user_id': g, 'message': 'Чмо' + '&#128522;', 'random_id': int(time.time())})
     elif message.lower() == 'урок':
+        if g not in I.ID.keys():
+            vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
+            continue
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
         hour += 2
@@ -67,6 +70,9 @@ while True:
         time.sleep(0.5)
         vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
     elif message.lower() == 'день':
+        if g not in I.ID.keys():
+            vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
+            continue
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
         hour += 2
