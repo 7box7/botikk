@@ -17,10 +17,12 @@ def write_msg(user_id):
 while True:
     T = sSettt()
     I = iddd()
-    time.sleep(0.7)
+    time.sleep(0.5)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
         continue
+    z = g
+    z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
     n = 0
     if g not in I.iD.keys():
@@ -30,6 +32,9 @@ while True:
                   {'user_id': 393598407, 'message': '*' + str(g), 'random_id': int(time.time())})
         continue
     message = write_msg(g)
+    if message.lower() == '':
+        vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
+        continue
     if message.lower() == 'валюты':
         vk.method('messages.send', {'user_id': g, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
     elif message.lower() in '(eur/usd)':
@@ -118,5 +123,6 @@ while True:
                                                              '------' + 'Гуревич' + '\n'
                                                              '------' + 'Урок' + '\n'
                                                              '------' + 'День' + '\n'
-                                                             '------' + 'Завтра' + '\n'
                                                              '------' + 'Валюты', 'random_id': int(time.time())})
+    else:
+        vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
