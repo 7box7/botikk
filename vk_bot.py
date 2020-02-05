@@ -17,11 +17,18 @@ def write_msg(user_id):
 while True:
     T = sSettt()
     I = iddd()
-    time.sleep(2)
+    time.sleep(0.7)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
         continue
     g = g['items'][0]['conversation']['peer']['id']
+    n = 0
+    if g not in I.iD.keys():
+        vk.method('messages.send',
+                  {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
+        vk.method('messages.send',
+                  {'user_id': 393598407, 'message': '*' + str(g), 'random_id': int(time.time())})
+        continue
     message = write_msg(g)
     if message.lower() == 'валюты':
         vk.method('messages.send', {'user_id': g, 'message': 'Какие? (EUR/USD)', 'random_id': int(time.time())})
@@ -29,9 +36,7 @@ while True:
         slovo = message.upper()
         r = requests.get('https://www.banki.ru/products/currency/cash/moskva/')
         r = r.text.split('\n')
-        r = list(filter(lambda x: '<td class="currency-table__large-text color-turquoise">' in x or slovo in x or '<div class="currency-table__large-text">' in x,
-                        r))
-        check = False
+        r = list(filter(lambda x: '<td class="currency-table__large-text color-turquoise">' in x or slovo in x or '<div class="currency-table__large-text">' in x, r))
         for i in range(len(r)):
             if r[i] == '				<td class="currency-table__large-text color-turquoise">':
                 if slovo in r[i + 1]:
@@ -43,12 +48,9 @@ while True:
     elif message.lower() == 'гуревич':
         vk.method('messages.send', {'user_id': g, 'message': 'Чмо' + '&#128522;', 'random_id': int(time.time())})
     elif message.lower() == 'урок':
-        if g not in I.iD.keys():
-            vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
-            continue
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour += 2
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -56,37 +58,45 @@ while True:
             else:
                 day = days[days.index(day) + 1]
         minu = int(time.strftime('%M', time.localtime()))
-        if hour * 60 + minu <= 620:
+        if hour * 60 + minu < 620:
             go = '1'
-        elif hour * 60 + minu <= 720:
+        elif hour * 60 + minu < 720:
             go = '2'
-        elif hour * 60 + minu <= 840:
+        elif hour * 60 + minu < 840:
             go = '3'
-        elif hour * 60 + minu <= 940:
+        elif hour * 60 + minu < 940:
             go = '4'
-        elif hour * 60 + minu <= 1440:
+        elif hour * 60 + minu < 1440:
             go = '5'
-        urok, cab = T.classes[I.iD[g][0]][I.iD[g][1]][day][go]
-        vk.method('messages.send', {'user_id': g, 'message': urok, 'random_id': int(time.time())})
-        time.sleep(0.5)
-        vk.method('messages.send', {'user_id': g, 'message': cab, 'random_id': int(time.time())})
+        urok, cab = T.classes[n][I.iD[g][0]][I.iD[g][1]][day][go]
+        answer = urok + ': ' + cab
+        vk.method('messages.send', {'user_id': g, 'message': answer, 'random_id': int(time.time())})
+    elif message.lower() == 'завтра':
+        day = time.strftime('%a', time.localtime())
+        if day == days[-1]:
+            day = 'Mon'
+        else:
+            day = days[days.index(day) + 1]
+        vk.method('messages.send',
+                      {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
+                                                + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
+                                                + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
+                                                + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n',
+                       'random_id': int(time.time())})
     elif message.lower() == 'день':
-        if g not in I.iD.keys():
-            vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
-            continue
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour += 2
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
                 day = 'Mon'
             else:
                 day = days[days.index(day) + 1]
-        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
-                                                            + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
-                                                            + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
-                                                            + ': '.join(T.classes[I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n', 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
+                                                            + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
+                                                            + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
+                                                            + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n', 'random_id': int(time.time())})
     elif message.lower() == 'илья':
         check = random.randint(1, 5)
         a = vk.method("photos.getMessagesUploadServer")
