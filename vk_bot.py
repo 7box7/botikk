@@ -123,6 +123,7 @@ while True:
                                                              '------' + 'Гуревич' + '\n'
                                                              '------' + 'Урок' + '\n'
                                                              '------' + 'День' + '\n'
+                                                             '------' + 'Завтра' + '\n'
                                                              '------' + 'Валюты', 'random_id': int(time.time())})
     else:
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
