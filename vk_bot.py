@@ -55,6 +55,7 @@ while True:
     elif message.lower() == 'урок':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime()))
+        vk.method('messages.send', {'user_id': g, 'message': day, hour, 'random_id': int(time.time())})
         hour += 3
         if hour >= 24:
             hour = hour - 24
