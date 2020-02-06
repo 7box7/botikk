@@ -82,6 +82,7 @@ while True:
             day = 'Mon'
         else:
             day = days[days.index(day) + 1]
+        vk.method('messages.send', {'user_id': g, 'message': day, 'random_id': int(time.time())})
         vk.method('messages.send',
                       {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
                                                 + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
@@ -98,6 +99,7 @@ while True:
                 day = 'Mon'
             else:
                 day = days[days.index(day) + 1]
+        vk.method('messages.send', {'user_id': g, 'message': day, 'random_id': int(time.time())})
         vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
                                                             + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
                                                             + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
