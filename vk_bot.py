@@ -65,11 +65,11 @@ while True:
         minu = int(time.strftime('%M', time.localtime()))
         if hour * 60 + minu < 620:
             go = '1'
-        elif hour * 60 + minu < 720:
+        elif hour * 60 + minu < 710:
             go = '2'
-        elif hour * 60 + minu < 840:
+        elif hour * 60 + minu < 830:
             go = '3'
-        elif hour * 60 + minu < 940:
+        elif hour * 60 + minu < 930:
             go = '4'
         elif hour * 60 + minu < 1440:
             go = '5'
@@ -127,3 +127,4 @@ while True:
                                                              '------' + 'Валюты', 'random_id': int(time.time())})
     else:
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, "message": 'Те че надо, дядь(теть)', 'random_id': int(time.time())})
