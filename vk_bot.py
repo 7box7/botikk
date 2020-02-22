@@ -2,14 +2,18 @@ import time
 import vk_api
 import requests
 import random
-import os
 from table import sSettt
 from IDDD import iddd
+from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
-answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', '/help напиши, если че надо']
+
+answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-tok = str(os.environ.get('VK_KEY'))
-vk = vk_api.VkApi(token=tok)
+vk = vk_api.VkApi(token='7d977d1ac381b8deabb8ef0969ebf9188c8b0be1e16941fc3fdc3496d06f5903c6ad53b3fb87c628b7f8d')
+keyboard = VkKeyboard(one_time=False, inline=True)
+keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
+keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
+keyboard.add_button('Завтра', color=VkKeyboardColor.DEFAULT)
 
 
 def write_msg(user_id):
@@ -27,7 +31,7 @@ while True:
     z = g
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
-    n = 1
+    n = 0
     if g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time.time())})
@@ -124,6 +128,10 @@ while True:
         c = vk.method('photos.saveMessagesPhoto', {'photo': b['photo'], 'server': b['server'], 'hash': b['hash']})[0]
         att = "photo{}_{}".format(c["owner_id"], c["id"])
         vk.method('messages.send', {'user_id': g, "attachment": att, 'random_id': int(time.time())})
+    elif message.lower() == '.':
+        vk.method('messages.send',
+                  {'user_id': 393598407, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(),
+                   'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
                                                              '------' + 'Гуревич' + '------' + '\n'
@@ -132,6 +140,5 @@ while True:
                                                              '------' + 'Завтра' + '------' + '\n'
                                                              '------' + 'Валюты' + '------', 'random_id': int(time.time())})
     else:
-        new = random.randint(0, 4)
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
-        vk.method('messages.send', {'user_id': g, "message": answers[new], 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, "message": answers[random.randint(0, len(answers)) - 1], 'random_id': int(time.time())})
