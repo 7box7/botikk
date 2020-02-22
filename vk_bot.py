@@ -2,11 +2,13 @@ import time
 import vk_api
 import requests
 import random
+import os
 from table import sSettt
 from IDDD import iddd
 
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-vk = vk_api.VkApi(token='7d977d1ac381b8deabb8ef0969ebf9188c8b0be1e16941fc3fdc3496d06f5903c6ad53b3fb87c628b7f8d')
+tok = os.environ.get('VK_KEY')
+vk = vk_api.VkApi(token=tok)
 
 
 def write_msg(user_id):
