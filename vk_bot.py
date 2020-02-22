@@ -130,7 +130,7 @@ while True:
         vk.method('messages.send', {'user_id': g, "attachment": att, 'random_id': int(time.time())})
     elif message.lower() == '.':
         vk.method('messages.send',
-                  {'user_id': 393598407, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(),
+                  {'user_id': g, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(),
                    'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
