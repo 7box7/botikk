@@ -2,7 +2,6 @@ import time
 import vk_api
 import requests
 import random
-import pytz
 import os
 from table import sSettt
 from IDDD import iddd
