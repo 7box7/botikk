@@ -132,5 +132,6 @@ while True:
                                                              '------' + 'Завтра' + '------' + '\n'
                                                              '------' + 'Валюты' + '------', 'random_id': int(time.time())})
     else:
+        new = random.randint(0, 4)
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
-        vk.method('messages.send', {'user_id': g, "message": answers[random.randint(0, len(answers))], 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, "message": answers[new], 'random_id': int(time.time())})
