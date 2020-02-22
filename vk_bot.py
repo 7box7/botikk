@@ -6,6 +6,7 @@ import os
 from table import sSettt
 from IDDD import iddd
 
+answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', '/help напиши, если че надо']
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 tok = str(os.environ.get('VK_KEY'))
 vk = vk_api.VkApi(token=tok)
@@ -28,10 +29,8 @@ while True:
     g = g['items'][0]['conversation']['peer']['id']
     n = 1
     if g not in I.iD.keys():
-        vk.method('messages.send',
-                  {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
-        vk.method('messages.send',
-                  {'user_id': 393598407, 'message': '*' + str(g), 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time.time())})
         continue
     message = write_msg(g)
     if message.lower() == '':
@@ -56,8 +55,7 @@ while True:
         vk.method('messages.send', {'user_id': g, 'message': 'Чмо' + '&#128522;', 'random_id': int(time.time())})
     elif message.lower() == 'урок':
         day = time.strftime('%a', time.localtime())
-        hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour = int(time.strftime('%H', time.localtime())) + 3
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -73,15 +71,14 @@ while True:
             go = '3'
         elif hour * 60 + minu < 930:
             go = '4'
-        elif hour * 60 + minu < 1440:
+        else:
             go = '5'
         urok, cab = T.classes[n][I.iD[g][0]][I.iD[g][1]][day][go]
         answer = urok + ': ' + cab
         vk.method('messages.send', {'user_id': g, 'message': answer, 'random_id': int(time.time())})
     elif message.lower() == 'завтра':
         day = time.strftime('%a', time.localtime())
-        hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour = int(time.strftime('%H', time.localtime())) + 3
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -100,8 +97,7 @@ while True:
                        'random_id': int(time.time())})
     elif message.lower() == 'день':
         day = time.strftime('%a', time.localtime())
-        hour = int(time.strftime('%H', time.localtime()))
-        hour += 3
+        hour = int(time.strftime('%H', time.localtime())) + 3
         if hour >= 24:
             hour = hour - 24
             if day == days[-1]:
@@ -130,11 +126,11 @@ while True:
         vk.method('messages.send', {'user_id': g, "attachment": att, 'random_id': int(time.time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
-                                                             '------' + 'Гуревич' + '\n'
-                                                             '------' + 'Урок' + '\n'
-                                                             '------' + 'День' + '\n'
-                                                             '------' + 'Завтра' + '\n'
-                                                             '------' + 'Валюты', 'random_id': int(time.time())})
+                                                             '------' + 'Гуревич' + '------' + '\n'
+                                                             '------' + 'Урок' + '------' + '\n'
+                                                             '------' + 'День' + '------' + '\n'
+                                                             '------' + 'Завтра' + '------' + '\n'
+                                                             '------' + 'Валюты' + '------', 'random_id': int(time.time())})
     else:
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time.time())})
-        vk.method('messages.send', {'user_id': g, "message": 'Те че надо, дядь(теть)', 'random_id': int(time.time())})
+        vk.method('messages.send', {'user_id': g, "message": answers[random.randint(0, len(answers))], 'random_id': int(time.time())})
