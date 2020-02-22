@@ -7,7 +7,7 @@ from table import sSettt
 from IDDD import iddd
 
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-tok = os.environ.get('VK_KEY')
+tok = ыек(os.environ.get('VK_KEY'))
 vk = vk_api.VkApi(token=tok)
 
 
