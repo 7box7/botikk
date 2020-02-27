@@ -145,6 +145,9 @@ while True:
         elif count == 4:
             vk.method('messages.send', {'user_id': g, 'message': 'пи..сец ты некультурный', 'random_id': int(time.time())})
             count = 0
+    elif message.lower() == 'пи18' and count == 4:
+        vk.method('messages.send', {'user_id': g, 'message': 'пиздец ты некультурный', 'random_id': int(time.time())})
+        count = 0
     elif message.lower() == '.':
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(),
