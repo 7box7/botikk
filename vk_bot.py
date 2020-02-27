@@ -129,6 +129,9 @@ while True:
         c = vk.method('photos.saveMessagesPhoto', {'photo': b['photo'], 'server': b['server'], 'hash': b['hash']})[0]
         att = "photo{}_{}".format(c["owner_id"], c["id"])
         vk.method('messages.send', {'user_id': g, "attachment": att, 'random_id': int(time.time())})
+    elif message.lower() == 'пи18' and count == 4:
+        vk.method('messages.send', {'user_id': g, 'message': 'пиздец ты некультурный', 'random_id': int(time.time())})
+        count = 0
     elif message.lower() == 'пи':
         if count == 0:
             vk.method('messages.send', {'user_id': g, 'message': '3.14', 'random_id': int(time.time())})
@@ -145,9 +148,6 @@ while True:
         elif count == 4:
             vk.method('messages.send', {'user_id': g, 'message': 'пи..сец ты некультурный', 'random_id': int(time.time())})
             count = 0
-    elif message.lower() == 'пи18' and count == 4:
-        vk.method('messages.send', {'user_id': g, 'message': 'пиздец ты некультурный', 'random_id': int(time.time())})
-        count = 0
     elif message.lower() == '.':
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(),
