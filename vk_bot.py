@@ -32,7 +32,7 @@ while True:
     z = g
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
-    n = 0
+    n = 1
     if g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time.time())})
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time.time())})
