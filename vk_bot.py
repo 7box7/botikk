@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from time import time
 import vk_api
+import os
 import requests
 from random import randint
 from table import sSettt
@@ -9,7 +10,7 @@ from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
-vk = vk_api.VkApi(token='VK_KEY')
+vk = vk_api.VkApi(token=str(os.environ.get('VK_KEY')))
 keyboard = VkKeyboard(one_time=False)
 keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
