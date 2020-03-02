@@ -10,7 +10,8 @@ from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
-vk = vk_api.VkApi(token=str(os.environ.get('VK_KEY')))
+tok = os.environ.get('VK_KEY')
+vk = vk_api.VkApi(token=tok)
 keyboard = VkKeyboard(one_time=False)
 keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
