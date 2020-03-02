@@ -58,6 +58,8 @@ while True:
                               {'user_id': g, 'message': str(b), 'random_id': int(time.time())})
     elif message.lower() == 'гуревич':
         vk.method('messages.send', {'user_id': g, 'message': 'Чмо' + '&#128522;', 'random_id': int(time.time())})
+    elif message.lower() == 'солнце' and g in (324831486, 393598407):
+        vk.method('messages.send', {'user_id': g, 'message': 'Твое' + '&#10084;', 'random_id': int(time.time())})
     elif message.lower() == 'урок':
         day = time.strftime('%a', time.localtime())
         hour = int(time.strftime('%H', time.localtime())) + 3
