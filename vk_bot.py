@@ -1,15 +1,15 @@
-import time
+from datetime import datetime, timedelta
+from time import time
 import vk_api
 import requests
-import random
+from random import randint
 from table import sSettt
 from IDDD import iddd
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
-days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-vk = vk_api.VkApi(token='7d977d1ac381b8deabb8ef0969ebf9188c8b0be1e16941fc3fdc3496d06f5903c6ad53b3fb87c628b7f8d')
+vk = vk_api.VkApi(token='VK_KEY')
 keyboard = VkKeyboard(one_time=False)
 keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
@@ -61,15 +61,10 @@ while True:
     elif message.lower() == 'солнце' and g in (324831486, 393598407):
         vk.method('messages.send', {'user_id': g, 'message': 'Твое' + '&#10084;', 'random_id': int(time.time())})
     elif message.lower() == 'урок':
-        day = time.strftime('%a', time.localtime())
-        hour = int(time.strftime('%H', time.localtime())) + 3
-        if hour >= 24:
-            hour = hour - 24
-            if day == days[-1]:
-                day = 'Mon'
-            else:
-                day = days[days.index(day) + 1]
-        minu = int(time.strftime('%M', time.localtime()))
+        date = datetime.now() + timedelta(hours=3)
+        day = date.strftime('%a')
+        hour = int(date.strftime('%H'))
+        minu = int(date.strftime('%M'))
         if hour * 60 + minu < 620:
             go = '1'
         elif hour * 60 + minu < 710:
@@ -84,18 +79,9 @@ while True:
         answer = urok + ': ' + cab
         vk.method('messages.send', {'user_id': g, 'message': answer, 'random_id': int(time.time())})
     elif message.lower() == 'завтра':
-        day = time.strftime('%a', time.localtime())
-        hour = int(time.strftime('%H', time.localtime())) + 3
-        if hour >= 24:
-            hour = hour - 24
-            if day == days[-1]:
-                day = 'Mon'
-            else:
-                day = days[days.index(day) + 1]
-        if day == days[-1]:
-            day = 'Mon'
-        else:
-            day = days[days.index(day) + 1]
+        date = datetime.now() + timedelta(hours=27)
+        day = date.strftime('%a')
+        hour = int(date.strftime('%H'))
         vk.method('messages.send',
                       {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
                                                 + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
@@ -103,14 +89,9 @@ while True:
                                                 + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n',
                        'random_id': int(time.time())})
     elif message.lower() == 'день':
-        day = time.strftime('%a', time.localtime())
-        hour = int(time.strftime('%H', time.localtime())) + 3
-        if hour >= 24:
-            hour = hour - 24
-            if day == days[-1]:
-                day = 'Mon'
-            else:
-                day = days[days.index(day) + 1]
+        date = datetime.now() + timedelta(hours=3)
+        day = date.strftime('%a')
+        hour = int(date.strftime('%H'))
         vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
                                                             + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
                                                             + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
