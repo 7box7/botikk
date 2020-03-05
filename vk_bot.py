@@ -24,6 +24,18 @@ def write_msg(user_id):
     return alll
 
 
+def register(id, bukva, group):
+    f = open('IDDD.py', 'r+')
+    lines = f.readlines()
+    del lines[-1]
+    f.close()
+    f = open('IDDD.py', 'w')
+    f.writelines(lines)
+    f.write('            %s: [\'%s\', %s],\n' % (id, bukva, group))
+    f.write('        }')
+    f.close()
+    
+
 while True:
     T = sSettt()
     I = iddd()
@@ -38,6 +50,16 @@ while True:
     if g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
+        continue
+        elif '/reg' == write_msg(g).lower and len(write_msg(g)) == 4:
+        vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра', 'random_id': int(time())})
+        continue
+    elif '/reg' == write_msg(g).lower and len(write_msg(g)) > 4:
+        fuf = write_msg(g).split('-')
+        if fuf[1] not in ['Z', 'E', 'J', 'D']:
+            vk.method('messages.send', {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)', 'random_id': int(time())})
+        else:
+            register(g, fuf[1], fuf[2])
         continue
     message = write_msg(g)
     if message.lower() == '':
