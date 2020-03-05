@@ -5,8 +5,9 @@ import os
 import requests
 from random import randint
 from table import sSettt
-from IDDD import iddd
+import IDDD
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+from importlib import reload
 
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
@@ -38,7 +39,7 @@ def register(id, bukva, group):
 
 while True:
     T = sSettt()
-    I = iddd()
+    I = IDDD.iddd()
     sleep(0.5)
     g = vk.method('messages.getConversations', {'filter': 'unread'})
     if len(g['items']) == 0:
@@ -47,19 +48,27 @@ while True:
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
     n = 1
-    if g not in I.iD.keys():
-        vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
-        vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
+    if '/reg' == write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
+        vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
+                                    'random_id': int(time())})
         continue
-        elif '/reg' == write_msg(g).lower and len(write_msg(g)) == 4:
-        vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра', 'random_id': int(time())})
-        continue
-    elif '/reg' == write_msg(g).lower and len(write_msg(g)) > 4:
+    elif '/reg' in write_msg(g).lower() and len(write_msg(g)) > 4:
         fuf = write_msg(g).split('-')
+        print(fuf)
         if fuf[1] not in ['Z', 'E', 'J', 'D']:
-            vk.method('messages.send', {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)', 'random_id': int(time())})
+            vk.method('messages.send',
+                      {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)',
+                       'random_id': int(time())})
+            continue
         else:
             register(g, fuf[1], fuf[2])
+            vk.method('messages.send', {'user_id': g, 'message': 'Готово', 'random_id': int(time())})
+            reload(IDDD)
+    elif g not in I.iD.keys():
+        print(I.iD.keys())
+        vk.method('messages.send',
+                  {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии, хочешь зарегаться пиши /reg', 'random_id': int(time())})
+        vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
         continue
     message = write_msg(g)
     if message.lower() == '':
