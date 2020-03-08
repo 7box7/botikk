@@ -64,7 +64,7 @@ while True:
             register(g, fuf[1], fuf[2])
             vk.method('messages.send', {'user_id': g, 'message': 'Готово', 'random_id': int(time())})
             reload(IDDD)
-            vk.method('messages.send', {'user_id': 393598407, 'message': str(I.ID), 'random_id': int(time())})
+            vk.method('messages.send', {'user_id': 393598407, 'message': str(I.iD.keys()), 'random_id': int(time())})
     if g not in I.iD.keys():
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
