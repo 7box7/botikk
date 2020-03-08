@@ -78,11 +78,11 @@ while True:
                 vk.method('messages.send',
                           {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)',
                            'random_id': int(time())})
-                continue
             else:
                 register(g, fuf[1], fuf[2])
-                vk.method('messages.send', {'user_id': g, 'message': 'Готово', 'random_id': int(time())})
+                vk.method('messages.send', {'user_id': g, 'message': 'Готово, подожди 2 минуты', 'random_id': int(time())})
                 reload(IDDD)
+            continue
     if g not in I.iD.keys():
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
