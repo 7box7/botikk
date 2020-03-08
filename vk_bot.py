@@ -7,7 +7,7 @@ from random import randint
 from table import sSettt
 import IDDD
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
-#from importlib import reload
+from importlib import reload
 
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
