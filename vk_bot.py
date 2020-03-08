@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from time import time, sleep
 import vk_api
 import os
+import json
+import base64
 import requests
 from random import randint
 from table import sSettt
@@ -25,16 +27,27 @@ def write_msg(user_id):
     return alll
 
 
-def register(id, bukva, group):
+def register(i, bukva, group):
     f = open('IDDD.py', 'r+')
     lines = f.readlines()
     del lines[-1]
     f.close()
     f = open('IDDD.py', 'w')
     f.writelines(lines)
-    f.write('            %s: [\'%s\', %s],\n' % (id, bukva, group))
+    f.write('            %s: [\'%s\', %s],\n' % (i, bukva, group))
     f.write('        }')
-    f.close()
+    g = str(f).encode('utf-8')
+    g64 = base64.b64encode(g)
+    g64str = g64.decode('utf-8')
+    f = {
+        'path': '',
+        'message': 'Create new file via GitHub API',
+        'content': g64str
+    }
+    requests.put('https://api.github.com/repos/7box7/botikk/contents/IDDDD.py',
+                 auth=(username, password),
+                 headers={"Content-Type": "application/json"},
+                 data=json.dumps(f))
     
 
 while True:
@@ -48,23 +61,21 @@ while True:
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
     n = 1
-    if '/reg' == write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
+    if '/reg' in write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
                                     'random_id': int(time())})
         continue
-    elif '/reg' in write_msg(g).lower() and len(write_msg(g)) > 4:
-        fuf = write_msg(g).split('-')
-        print(fuf)
-        if fuf[1] not in ['Z', 'E', 'J', 'D']:
-            vk.method('messages.send',
-                      {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)',
-                       'random_id': int(time())})
-            continue
-        else:
-            register(g, fuf[1], fuf[2])
-            vk.method('messages.send', {'user_id': g, 'message': 'Готово', 'random_id': int(time())})
-            reload(IDDD)
-            vk.method('messages.send', {'user_id': 393598407, 'message': str(I.iD.keys()), 'random_id': int(time())})
+        if '/reg' in write_msg(g).lower() and len(write_msg(g)) > 4:
+            fuf = write_msg(g).split('-')
+            if fuf[1] not in ['Z', 'E', 'J', 'D']:
+                vk.method('messages.send',
+                          {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)',
+                           'random_id': int(time())})
+                continue
+            else:
+                register(g, fuf[1], fuf[2])
+                vk.method('messages.send', {'user_id': g, 'message': 'Готово', 'random_id': int(time())})
+                reload(IDDD)
     if g not in I.iD.keys():
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
