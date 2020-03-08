@@ -1,0 +1,1 @@
+<_io.TextIOWrapper name='IDDD.py' mode='w' encoding='cp1251'>
