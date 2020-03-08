@@ -14,6 +14,8 @@ from importlib import reload
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
 tok = str(os.environ.get('VK_KEY'))
+passw = str(os.environ.get('PASSGIT'))
+username = str(os.environ.get('USERR'))
 vk = vk_api.VkApi(token=tok)
 keyboard = VkKeyboard(one_time=False)
 keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
@@ -28,27 +30,32 @@ def write_msg(user_id):
 
 
 def register(i, bukva, group):
-    f = open('IDDD.py', 'r+')
-    lines = f.readlines()
-    del lines[-1]
-    f.close()
-    f = open('IDDD.py', 'w')
-    f.writelines(lines)
-    f.write('            %s: [\'%s\', %s],\n' % (i, bukva, group))
-    f.write('        }')
+    myfile = requests.get('https://api.github.com/repos/7box7/botikk/contents/IDDD.py', auth=(username, passw))
+    f = base64.b64decode(myfile.json()['content'])
+    f = f.decode('utf-8')
+    f = f[:len(f) - 11] + '            %s: [\'%s\', %s],' % (i, bukva, group) + '\n' + '        }'
     g = str(f).encode('utf-8')
     g64 = base64.b64encode(g)
     g64str = g64.decode('utf-8')
+    z = requests.get('https://api.github.com/repos/7box7/botikk/contents/IDDD.py',
+                     auth=(username, passw))
+    f = {
+        'message': 'sorry',
+        'sha': z.json()['sha']
+    }
+    z = requests.delete('https://api.github.com/repos/7box7/botikk/contents/IDDD.py',
+                        auth=(username, passw),
+                        data=json.dumps(f))
     f = {
         'path': '',
         'message': 'Create new file via GitHub API',
         'content': g64str
     }
-    requests.put('https://api.github.com/repos/7box7/botikk/contents/IDDDD.py',
-                 auth=(username, password),
+    requests.put('https://api.github.com/repos/7box7/botikk/contents/IDDD.py',
+                 auth=(username, passw),
                  headers={"Content-Type": "application/json"},
                  data=json.dumps(f))
-    
+
 
 while True:
     T = sSettt()
@@ -65,9 +72,9 @@ while True:
         vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
                                     'random_id': int(time())})
         continue
-    elif '/reg' in write_msg(g).lower() and len(write_msg(g)) > 4:
+    elif '/reg' in write_msg(g).lower() and len(write_msg(g)) > 4 and g not in I.iD.keys():
             fuf = write_msg(g).split('-')
-            if fuf[1] not in ['Z', 'E', 'J', 'D']:
+            if fuf[1] not in ['Z', 'E', 'J']:
                 vk.method('messages.send',
                           {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)',
                            'random_id': int(time())})
