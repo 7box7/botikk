@@ -22,7 +22,7 @@ keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('Завтра', color=VkKeyboardColor.DEFAULT)
 count = 0
-
+n = 0
 
 def write_msg(user_id):
     alll = vk.method('messages.search', {'peer_id': user_id, 'q': '.', 'count': 1})['items'][0]['text']
@@ -67,7 +67,6 @@ while True:
     z = g
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
-    n = 0
     if '/reg' in write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
                                     'random_id': int(time())})
@@ -192,7 +191,8 @@ while True:
                                                              '------' + 'Урок' + '------' + '\n'
                                                              '------' + 'День' + '------' + '\n'
                                                              '------' + 'Завтра' + '------' + '\n'
-                                                             '------' + 'Валюты' + '------', 'random_id': int(time())})
+    elif '/week' in message.lower() and g == 393598407:
+        n = int(message[-1])                                                      '------' + 'Валюты' + '------', 'random_id': int(time())})
     else:
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
         vk.method('messages.send', {'user_id': g, "message": answers[randint(0, len(answers)) - 1], 'random_id': int(time())})
