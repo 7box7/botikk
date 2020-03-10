@@ -67,7 +67,7 @@ while True:
     z = g
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
-    n = 1
+    n = 0
     if '/reg' in write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
                                     'random_id': int(time())})
