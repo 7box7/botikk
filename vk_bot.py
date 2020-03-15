@@ -31,7 +31,7 @@ def write_msg(user_id):
 
 
 def register(i, bukva, group):
-    buffer[i] = [bukva, group]
+    buffer[i] = [bukva, int(group)]
     myfile = requests.get('https://api.github.com/repos/7box7/botikk/contents/IDDD.py', auth=(username, passw))
     f = base64.b64decode(myfile.json()['content'])
     f = f.decode('utf-8')
