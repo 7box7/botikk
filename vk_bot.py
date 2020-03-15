@@ -87,6 +87,8 @@ while True:
                   {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
         continue
+    else:
+        vk.method('messages.send', {'user_id': g, 'message': str(g), 'random_id': int(time())})
     message = write_msg(g)
     if 'день' or 'урок' or 'завтра' in message.lower():
         if g in buffer.keys() and g not in I.iD.keys():
