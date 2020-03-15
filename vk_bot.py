@@ -21,7 +21,7 @@ keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('Завтра', color=VkKeyboardColor.DEFAULT)
 count = 0
-n = 0asdasd
+n = 0
 buffer = {}
 
 
@@ -70,22 +70,18 @@ while True:
     z = z['items'][0]['conversation']['last_message_id']
     g = g['items'][0]['conversation']['peer']['id']
     if '/reg' in write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
-        vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
-                                    'random_id': int(time())})
+        vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра', 'random_id': int(time())})
         continue
     elif len(write_msg(g)) > 4 and g not in I.iD.keys():
         fuf = write_msg(g).split('-')
         if fuf[1] not in ['Z', 'E', 'J']:
-            vk.method('messages.send',
-                          {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)',
-                           'random_id': int(time())})
+            vk.method('messages.send', {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)', 'random_id': int(time())})
         else:
             register(g, fuf[1], fuf[2])
             vk.method('messages.send', {'user_id': g, 'message': 'Готово, подожди 2 минуты', 'random_id': int(time())})
         continue
     if g not in I.iD.keys() and g not in buffer:
-        vk.method('messages.send',
-                  {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
+        vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
         continue
     message = write_msg(g)
@@ -113,8 +109,7 @@ while True:
                     b = r[i + 2]
                     b = b.split('<div class="currency-table__large-text">')
                     b = b[1][:-6]
-                    vk.method('messages.send',
-                              {'user_id': g, 'message': str(b), 'random_id': int(time())})
+                    vk.method('messages.send', {'user_id': g, 'message': str(b), 'random_id': int(time())})
     elif message.lower() == 'гуревич':
         vk.method('messages.send', {'user_id': g, 'message': 'Чмо' + '&#128522;', 'random_id': int(time())})
     elif message.lower() == 'солнце' and g in (324831486, 393598407):
