@@ -186,7 +186,7 @@ while True:
                                                              '------' + 'День' + '------' + '\n'
                                                              '------' + 'Завтра' + '------' + '\n'
                                                              '------' + 'Валюты' + '------', 'random_id': int(time())})
-    elif '/week' in message.lower() and g == 393598407:
+    elif '/week' in message.lower() and (g == 393598407 or g == 199873520):
         n = int(message[-1])
     else:
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
