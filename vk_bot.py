@@ -33,7 +33,7 @@ def register(i, bukva, group):
     myfile = requests.get('https://api.github.com/repos/7box7/botikk/contents/IDDD.py', auth=(username, passw))
     f = base64.b64decode(myfile.json()['content'])
     f = f.decode('utf-8')
-    f = f[:len(f) - 12] + '\n' + '            %s: [\'%s\', %s],' % (i, bukva, group) + '\n' + '        }'
+    f = f[:len(f) - 10] + '\n' + '           %s: [\'%s\', %s],' % (i, bukva, group) + '\n' + '        }'
     g = str(f).encode('utf-8')
     g64 = base64.b64encode(g)
     g64str = g64.decode('utf-8')
