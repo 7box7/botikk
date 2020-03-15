@@ -70,8 +70,7 @@ while True:
     if '/reg' in write_msg(g).lower() and len(write_msg(g)) == 4 and g not in I.iD.keys():
         vk.method('messages.send', {'user_id': g, 'message': 'Напиши свой класс и группу в формате: /reg-класс-цифра',
                                     'random_id': int(time())})
-        continue
-    elif '/reg' in write_msg(g).lower() and len(write_msg(g)) > 4 and g not in I.iD.keys():
+        if len(write_msg(g)) > 4 and g not in I.iD.keys():
             fuf = write_msg(g).split('-')
             if fuf[1] not in ['Z', 'E', 'J']:
                 vk.method('messages.send',
@@ -81,7 +80,7 @@ while True:
                 register(g, fuf[1], fuf[2])
                 vk.method('messages.send', {'user_id': g, 'message': 'Готово, подожди 2 минуты', 'random_id': int(time())})
                 reload(IDDD)
-            continue
+        continue
     if g not in I.iD.keys():
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
