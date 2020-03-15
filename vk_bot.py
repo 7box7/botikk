@@ -32,7 +32,6 @@ def write_msg(user_id):
 
 def register(i, bukva, group):
     buffer[i] = [bukva, group]
-    vk.method('messages.send', {'user_id': 393598407, 'message': str(buffer[i]), 'random_id': int(time())})
     myfile = requests.get('https://api.github.com/repos/7box7/botikk/contents/IDDD.py', auth=(username, passw))
     f = base64.b64decode(myfile.json()['content'])
     f = f.decode('utf-8')
@@ -84,7 +83,7 @@ while True:
             register(g, fuf[1], fuf[2])
             vk.method('messages.send', {'user_id': g, 'message': 'Готово, подожди 2 минуты', 'random_id': int(time())})
         continue
-    if g not in I.iD.keys():
+    if g not in I.iD.keys() and g not in buffer:
         vk.method('messages.send',
                   {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
