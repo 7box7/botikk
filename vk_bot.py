@@ -91,12 +91,12 @@ while True:
     message = write_msg(g)
     if 'день' or 'урок' or 'завтра' in message.lower():
         if g in buffer.keys() and g not in I.iD.keys():
-            vk.method('messages.send', {'user_id': 393598407, 'message': 'есть', 'random_id': int(time())})
             b, gr = buffer[g]
         if g in I.iD.keys():
             if g in buffer.keys():
                 del buffer[g]
             b, gr = I.iD[g][0], I.iD[g][1]
+        vk.method('messages.send', {'user_id': 393598407, 'message': str(buffer), 'random_id': int(time())})
     if message.lower() == '':
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
         continue
