@@ -78,7 +78,7 @@ while True:
             vk.method('messages.send', {'user_id': g, 'message': 'Чел, неправильно написал букву класса или ещё что(/reg-Z-1)', 'random_id': int(time())})
         else:
             register(g, fuf[1], fuf[2])
-            vk.method('messages.send', {'user_id': g, 'message': 'Готово, подожди 2 минуты', 'random_id': int(time())})
+            vk.method('messages.send', {'user_id': g, 'message': 'Готово', 'random_id': int(time())})
         continue
     if g not in I.iD.keys() and g not in buffer:
         vk.method('messages.send', {'user_id': g, 'message': 'Чел, тебя нет в списке, сориии', 'random_id': int(time())})
@@ -92,7 +92,6 @@ while True:
             if g in buffer.keys():
                 del buffer[g]
             b, gr = I.iD[g][0], I.iD[g][1]
-        vk.method('messages.send', {'user_id': 393598407, 'message': str(buffer), 'random_id': int(time())})
     if message.lower() == '':
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
         continue
@@ -104,7 +103,7 @@ while True:
         r = r.text.split('\n')
         r = list(filter(lambda x: '<td class="currency-table__large-text color-turquoise">' in x or slovo in x or '<div class="currency-table__large-text">' in x, r))
         for i in range(len(r)):
-            if r[i] == '				<td class="currency-table__large-text color-turquoise">':
+            if r[i] == '    			<td class="currency-table__large-text color-turquoise">':
                 if slovo in r[i + 1]:
                     b = r[i + 2]
                     b = b.split('<div class="currency-table__large-text">')
@@ -136,20 +135,12 @@ while True:
         date = datetime.now() + timedelta(hours=27)
         day = date.strftime('%a')
         hour = int(date.strftime('%H'))
-        vk.method('messages.send',
-                      {'user_id': g, 'message': ': '.join(T.classes[n][b][gr][day]['1']) + '\n'
-                                                + ': '.join(T.classes[n][b][gr][day]['2']) + '\n'
-                                                + ': '.join(T.classes[n][b][gr][day]['3']) + '\n'
-                                                + ': '.join(T.classes[n][b][gr][day]['4']) + '\n',
-                       'random_id': int(time())})
+        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][b][gr][day]['1']) + '\n' + ': '.join(T.classes[n][b][gr][day]['2']) + '\n' + ': '.join(T.classes[n][b][gr][day]['3']) + '\n' + ': '.join(T.classes[n][b][gr][day]['4']) + '\n', 'random_id': int(time())})
     elif message.lower() == 'день':
         date = datetime.now() + timedelta(hours=3)
         day = date.strftime('%a')
         hour = int(date.strftime('%H'))
-        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][b][gr][day]['1']) + '\n'
-                                                            + ': '.join(T.classes[n][b][gr][day]['2']) + '\n'
-                                                            + ': '.join(T.classes[n][b][gr][day]['3']) + '\n'
-                                                            + ': '.join(T.classes[n][b][gr][day]['4']) + '\n', 'random_id': int(time())})
+        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][b][gr][day]['1']) + '\n' + ': '.join(T.classes[n][b][gr][day]['2']) + '\n' + ': '.join(T.classes[n][b][gr][day]['3']) + '\n' + ': '.join(T.classes[n][b][gr][day]['4']) + '\n', 'random_id': int(time())})
     elif message.lower() == 'илья':
         check = randint(1, 5)
         a = vk.method("photos.getMessagesUploadServer")
@@ -187,8 +178,7 @@ while True:
             count = 0
     elif message.lower() == '.':
         vk.method('messages.send',
-                  {'user_id': g, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(),
-                   'random_id': int(time())})
+                  {'user_id': g, 'message': 'Для всех команд отправь /help', 'keyboard': keyboard.get_keyboard(), 'random_id': int(time())})
     elif message.lower() == '/help':
         vk.method('messages.send', {'user_id': g, 'message': 'Команды:' + '\n'
                                                              '------' + 'Гуревич' + '------' + '\n'
@@ -197,7 +187,7 @@ while True:
                                                              '------' + 'Завтра' + '------' + '\n'
                                                              '------' + 'Валюты' + '------', 'random_id': int(time())})
     elif '/week' in message.lower() and g == 393598407:
-        n = int(message[-1])                                                      
+        n = int(message[-1])
     else:
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
         vk.method('messages.send', {'user_id': g, "message": answers[randint(0, len(answers)) - 1], 'random_id': int(time())})
