@@ -21,7 +21,7 @@ keyboard.add_button('Урок', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('Завтра', color=VkKeyboardColor.DEFAULT)
 count = 0
-n = 0
+n = 0asdasd
 buffer = {}
 
 
