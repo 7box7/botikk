@@ -9,7 +9,6 @@ from random import randint
 from table import sSettt
 import IDDD
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
-from importlib import reload
 
 
 answers = ['Те че надо, дядь(теть)', 'Может чем-нить полезным займешься?', 'Иди поспи', 'Слова нормальные подбери', 'отправь точку, если че надо']
@@ -23,6 +22,8 @@ keyboard.add_button('День', color=VkKeyboardColor.DEFAULT)
 keyboard.add_button('Завтра', color=VkKeyboardColor.DEFAULT)
 count = 0
 n = 0
+buffer = {}
+
 
 def write_msg(user_id):
     alll = vk.method('messages.search', {'peer_id': user_id, 'q': '.', 'count': 1})['items'][0]['text']
@@ -30,6 +31,7 @@ def write_msg(user_id):
 
 
 def register(i, bukva, group):
+    buffer[i] = [bukva, group]
     myfile = requests.get('https://api.github.com/repos/7box7/botikk/contents/IDDD.py', auth=(username, passw))
     f = base64.b64decode(myfile.json()['content'])
     f = f.decode('utf-8')
@@ -79,7 +81,6 @@ while True:
             else:
                 register(g, fuf[1], fuf[2])
                 vk.method('messages.send', {'user_id': g, 'message': 'Готово, подожди 2 минуты', 'random_id': int(time())})
-                reload(IDDD)
         continue
     if g not in I.iD.keys():
         vk.method('messages.send',
@@ -87,6 +88,13 @@ while True:
         vk.method('messages.send', {'user_id': 393598407, 'message': str(g), 'random_id': int(time())})
         continue
     message = write_msg(g)
+    if 'день' or 'урок' or 'завтра' in message.lower():
+        if g in buffer.keys() and g not in I.iD.keys():
+            b, gr = buffer[g]
+        if g in I.iD.keys():
+            if g in buffer.keys():
+                del buffer[g]
+            b, gr = I.iD[g][0], I.iD[g][1]
     if message.lower() == '':
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
         continue
@@ -124,7 +132,7 @@ while True:
             go = '4'
         else:
             go = '5'
-        urok, cab = T.classes[n][I.iD[g][0]][I.iD[g][1]][day][go]
+        urok, cab = T.classes[n][b][gr][day][go]
         answer = urok + ': ' + cab
         vk.method('messages.send', {'user_id': g, 'message': answer, 'random_id': int(time())})
     elif message.lower() == 'завтра':
@@ -132,19 +140,19 @@ while True:
         day = date.strftime('%a')
         hour = int(date.strftime('%H'))
         vk.method('messages.send',
-                      {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
-                                                + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
-                                                + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
-                                                + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n',
+                      {'user_id': g, 'message': ': '.join(T.classes[n][b][gr][day]['1']) + '\n'
+                                                + ': '.join(T.classes[n][b][gr][day]['2']) + '\n'
+                                                + ': '.join(T.classes[n][b][gr][day]['3']) + '\n'
+                                                + ': '.join(T.classes[n][b][gr][day]['4']) + '\n',
                        'random_id': int(time())})
     elif message.lower() == 'день':
         date = datetime.now() + timedelta(hours=3)
         day = date.strftime('%a')
         hour = int(date.strftime('%H'))
-        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['1']) + '\n'
-                                                            + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['2']) + '\n'
-                                                            + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['3']) + '\n'
-                                                            + ': '.join(T.classes[n][I.iD[g][0]][I.iD[g][1]][day]['4']) + '\n', 'random_id': int(time())})
+        vk.method('messages.send', {'user_id': g, 'message': ': '.join(T.classes[n][b][gr][day]['1']) + '\n'
+                                                            + ': '.join(T.classes[n][b][gr][day]['2']) + '\n'
+                                                            + ': '.join(T.classes[n][b][gr][day]['3']) + '\n'
+                                                            + ': '.join(T.classes[n][b][gr][day]['4']) + '\n', 'random_id': int(time())})
     elif message.lower() == 'илья':
         check = randint(1, 5)
         a = vk.method("photos.getMessagesUploadServer")
