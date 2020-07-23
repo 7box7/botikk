@@ -95,21 +95,7 @@ while True:
     if message.lower() == '':
         vk.method('messages.markAsRead', {'peer_id': g, "start_message_id": z, 'random_id': int(time())})
         continue
-    if message.lower() == 'валюты':
-        vk.method('messages.send', {'user_id': g, 'message': 'Какие? (EUR/USD)', 'random_id': int(time())})
-    elif message.lower() in '(eur/usd)':
-        slovo = message.upper()
-        r = requests.get('https://www.banki.ru/products/currency/cash/moskva/')
-        r = r.text.split('\n')
-        r = list(filter(lambda x: '<td class="currency-table__large-text color-turquoise">' in x or slovo in x or '<div class="currency-table__large-text">' in x, r))
-        for i in range(len(r)):
-            if r[i] == '    			<td class="currency-table__large-text color-turquoise">':
-                if slovo in r[i + 1]:
-                    b = r[i + 2]
-                    b = b.split('<div class="currency-table__large-text">')
-                    b = b[1][:-6]
-                    vk.method('messages.send', {'user_id': g, 'message': str(b), 'random_id': int(time())})
-    elif message.lower() == 'гуревич':
+    if message.lower() == 'гуревич':
         vk.method('messages.send', {'user_id': g, 'message': 'Чмо' + '&#128522;', 'random_id': int(time())})
     elif message.lower() == 'солнце' and g in (324831486, 393598407):
         vk.method('messages.send', {'user_id': g, 'message': 'Твое' + '&#10084;', 'random_id': int(time())})
@@ -184,8 +170,7 @@ while True:
                                                              '------' + 'Гуревич' + '------' + '\n'
                                                              '------' + 'Урок' + '------' + '\n'
                                                              '------' + 'День' + '------' + '\n'
-                                                             '------' + 'Завтра' + '------' + '\n'
-                                                             '------' + 'Валюты' + '------', 'random_id': int(time())})
+                                                             '------' + 'Завтра' + '------', 'random_id': int(time())})
     elif '/week' in message.lower() and (g == 393598407 or g == 199873520):
         n = int(message[-1])
     else:
