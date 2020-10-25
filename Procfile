@@ -1,1 +1,1 @@
-worker: php index.php
+python vk_bot2.py
