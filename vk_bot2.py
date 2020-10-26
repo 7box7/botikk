@@ -5,8 +5,8 @@ import os
 tok = str(os.environ.get('VK_KEY2'))
 tok2 = str(os.environ.get('VK_KEY'))
 
-vk = vk_api.VkApi(token=tok2)
-vk_group = vk_api.VkApi(token=tok)
+vk = vk_api.VkApi(token=tok)
+vk_group = vk_api.VkApi(token=tok2)
 
 
 while True:
