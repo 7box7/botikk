@@ -1,1 +1,1 @@
-python vk_bot2.py
+python vk_bot.py
