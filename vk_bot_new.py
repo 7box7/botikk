@@ -2,8 +2,8 @@ from time import time, sleep
 import vk_api
 import os
 
-tok = str(os.environ.get('VK_KEY2'))
-tok2 = str(os.environ.get('VK_KEY'))
+tok = str(os.environ.get('VK1'))
+tok2 = str(os.environ.get('VK2'))
 
 vk = vk_api.VkApi(token=tok)
 vk_group = vk_api.VkApi(token=tok2)
