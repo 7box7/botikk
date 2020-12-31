@@ -8,7 +8,6 @@ tok2 = str(os.environ.get('VK_KEY'))
 vk = vk_api.VkApi(token=tok)
 vk_group = vk_api.VkApi(token=tok2)
 
-
 while True:
     sleep(2)
     g = vk.method('status.get', {'user_id': '393598407'})
