@@ -1,1 +1,1 @@
-worker: python vk_bot_new.py
+worker: python ege.py
