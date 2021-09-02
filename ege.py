@@ -42,15 +42,16 @@ while True:
 """
 #395952683
 #233764475
+#172955888
 while True:
-    longpoll = VkBotLongPoll(vk_group, 172955888)
+    longpoll = VkBotLongPoll(vk_group, 395952683)
     try:
         for event in longpoll.listen():
             if event.object.message["from_id"] == 233764475:
                 query_json = json.dumps(
                     {"peer_id": event.object.message["peer_id"], "conversation_message_ids": event.object.message["conversation_message_id"], "is_reply": True})
                 a = vk_group.method("photos.getMessagesUploadServer")
-                b = requests.post(a['upload_url'], files={'photo': open('file.jpg', 'rb')}).json()
+                b = requests.post(a['upload_url'], files={'photo': open('file_new.jpg', 'rb')}).json()
                 c = vk_group.method('photos.saveMessagesPhoto', {'photo': b['photo'], 'server': b['server'], 'hash': b['hash']})[0]
                 att = "photo{}_{}".format(c["owner_id"], c["id"])
                 vk_group.method('messages.send', {'peer_id': event.object.message["peer_id"], "attachment": att, 'random_id': int(time()), "forward": [query_json]})
