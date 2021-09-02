@@ -44,10 +44,10 @@ while True:
 #233764475
 #172955888
 while True:
-    longpoll = VkBotLongPoll(vk_group, 395952683)
+    longpoll = VkBotLongPoll(vk_group,172955888)
     try:
         for event in longpoll.listen():
-            if event.object.message["from_id"] == 233764475:
+            if event.object.message["from_id"] == 395952683:
                 query_json = json.dumps(
                     {"peer_id": event.object.message["peer_id"], "conversation_message_ids": event.object.message["conversation_message_id"], "is_reply": True})
                 a = vk_group.method("photos.getMessagesUploadServer")
